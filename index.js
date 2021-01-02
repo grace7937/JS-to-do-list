@@ -1,54 +1,100 @@
+const mainCheckBox = document.getElementById('mainCheckBox');
+let todos = [];
 const input = document.getElementById('input');
-const addBtn = document.getElementById('button');
-const list = document.getElementById('list');
+const ul = document.getElementById('ul');
 
-const addList = () => {
-  const newList = document.createElement('li');
-  newList.innerText = input.value;
-  list.appendChild(newList);
-
+const addList = (title) => {
+  const todoId = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1;
+  const todoItem = {
+    id: todoId,
+    status: 'active',
+    title: title,
+  };
+  todos.push(todoItem);
   input.value = '';
-
-  makeDeleteBtn(newList);
-  // alertNewList();
+  console.log('todos', todos);
+  render(todos);
 };
 
-// addBtn.addEventListener('click', addList);
-input.addEventListener('keydonw', addList);
-
-const makeDeleteBtn = function (newElement) {
-  const deleteBtn = document.createElement('button');
-  deleteBtn.innerText = 'delete';
-  newElement.appendChild(deleteBtn);
-  deleteBtn.addEventListener('click', onDelete);
+const deleteList = (event) => {
+  const resultOfDelete = todos.filter(
+    (cv) => Number(event.target.parentNode.id) !== cv.id
+  );
+  todos = resultOfDelete;
+  render(resultOfDelete);
 };
 
-const alertNewList = () => {
-  alert(input.value + ' 항목이 새로 추가됐습니다.');
+const changeStatus = (event) => {
+  const resultOfChangeStatus = todos.map((cv) => {
+    if (Number(event.target.parentNode.id) == cv.id) {
+      if (cv.status == 'active') {
+        cv.status = 'completed';
+      } else if (cv.status == 'completed') {
+        cv.status = 'active';
+      }
+      console.log(cv);
+      return cv;
+    }
+  });
+  console.log(resultOfChangeStatus);
 };
 
-const onDelete = (event) => {
-  const parentTag = event.target.parentNode;
-  list.removeChild(parentTag);
+const render = (todoList) => {
+  ul.innerHTML = '';
+  todoList.map((cv) => {
+    const checkBox = document.createElement('input');
+    checkBox.type = 'checkbox';
+    checkBox.className = 'checkBox';
+    checkBox.addEventListener('change', changeStatus);
+
+    const wrapperLi = document.createElement('li');
+    wrapperLi.id = cv.id;
+
+    const titleSpan = document.createElement('span');
+    titleSpan.innerText = cv.title;
+
+    const button = document.createElement('button');
+    button.innerText = 'Delete';
+    button.classList.add('button');
+    button.addEventListener('click', deleteList);
+
+    wrapperLi.appendChild(checkBox);
+    wrapperLi.appendChild(titleSpan);
+    wrapperLi.appendChild(button);
+
+    ul.appendChild(wrapperLi);
+  });
 };
 
-//  const command = function(input) {
-//  const taskList = {};
-//  const inputArray = input.split('$');
+const checkAll = () => {
+  const newTodos = todos.map((cv) => {
+    cv.status = 'completed';
+    return cv;
+  });
 
-//     inputArray[0] == 'add' ? addvalue(inputArray[1]) :
-//     inputArray[0] == 'show' ? showStaus() :
-//     inputArray[0] == 'update'? update();
+  todos = newTodos;
+};
 
-// };
+const unchekAll = () => {
+  const newTodos = todos.map((cv) => {
+    cv.status = 'active';
+    return cv;
+  });
+};
 
-// const addValue = function(){
-//     this.taskList.id = 'lenght?';
-//     this.taskList.task = '';
-//     this.taskList.status = 'todo';
+const onToggle = () => {
+  console.log(todos);
+  if ((document.getElementById('mainCheckBox').checked = true)) {
+    checkAll();
+  } else if ((document.getElementById('mainCheckBox').checked = false)) {
+    uncheckall();
+  }
+};
 
-// };
+input.addEventListener('keydown', (e) => {
+  if (e.keyCode === 13 && e.target.value !== '') {
+    addList(e.target.value);
+  }
+});
 
-// const showStatus = function(){};
-
-// const update = function(){};
+mainCheckBox.addEventListener('change', onToggle);
