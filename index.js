@@ -12,7 +12,6 @@ const addList = (title) => {
   };
   todos.push(todoItem);
   input.value = '';
-  console.log('todos', todos);
   render(todos);
 };
 
@@ -32,19 +31,19 @@ const changeStatus = (event) => {
       } else if (cv.status == 'completed') {
         cv.status = 'active';
       }
-      console.log(cv);
       return cv;
     }
   });
-  console.log(resultOfChangeStatus);
 };
 
 const render = (todoList) => {
+  console.log(todoList)
   ul.innerHTML = '';
   todoList.map((cv) => {
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
     checkBox.className = 'checkBox';
+    checkBox.checked = cv.status === 'completed' ? true : false;
     checkBox.addEventListener('change', changeStatus);
 
     const wrapperLi = document.createElement('li');
@@ -67,28 +66,27 @@ const render = (todoList) => {
 };
 
 const checkAll = () => {
-  const newTodos = todos.map((cv) => {
-    cv.status = 'completed';
-    return cv;
+  const newTodos = todos.map(todo => {
+    return { ...todo, status: 'completed' };
   });
-
   todos = newTodos;
 };
 
 const unchekAll = () => {
-  const newTodos = todos.map((cv) => {
-    cv.status = 'active';
-    return cv;
+  const newTodos = todos.map(todo => {
+    return { ...todo, status: 'active' };
   });
+  todos = newTodos;
 };
 
 const onToggle = () => {
-  console.log(todos);
-  if ((document.getElementById('mainCheckBox').checked = true)) {
+  // TODO: todos의 상태를 보고 분기 조건 만들기. every, some을 공부하고 DOM 없이 리팩터링 하기
+  if ((document.getElementById('mainCheckBox').checked === true)) {
     checkAll();
-  } else if ((document.getElementById('mainCheckBox').checked = false)) {
-    uncheckall();
+  } else {
+    unchekAll();
   }
+  render(todos);
 };
 
 input.addEventListener('keydown', (e) => {
