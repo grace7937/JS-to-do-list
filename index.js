@@ -12,46 +12,48 @@ const addList = (title) => {
   };
   todos.push(todoItem);
   input.value = '';
-  console.log('todos', todos);
   render(todos);
 };
 
 const deleteList = (event) => {
-  const resultOfDelete = todos.filter(
-    (cv) => Number(event.target.parentNode.id) !== cv.id
+  const deletedList = todos.filter(
+    (list) => Number(event.target.parentNode.id) !== list.id
   );
-  todos = resultOfDelete;
-  render(resultOfDelete);
+  todos = deletedList;
+  render(deletedList);
 };
 
 const changeStatus = (event) => {
-  const resultOfChangeStatus = todos.map((cv) => {
-    if (Number(event.target.parentNode.id) == cv.id) {
-      if (cv.status == 'active') {
-        cv.status = 'completed';
-      } else if (cv.status == 'completed') {
-        cv.status = 'active';
+  const changedStatusTodos = todos.map((list) => {
+    if (Number(event.target.parentNode.id) == list.id) {
+      if (event.target.checked == true) {
+        return { ...list, status: 'completed' };
+      } else {
+        return { ...list, status: 'active' };
       }
-      console.log(cv);
-      return cv;
+    } else {
+      return list;
     }
   });
-  console.log(resultOfChangeStatus);
+  todos = changedStatusTodos;
+  console.log(todos);
+  render(todos);
 };
 
-const render = (todoList) => {
+const render = (todos) => {
   ul.innerHTML = '';
-  todoList.map((cv) => {
+  todos.map((list) => {
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
     checkBox.className = 'checkBox';
+    checkBox.checked = list.status === 'completed' ? true : false;
     checkBox.addEventListener('change', changeStatus);
 
     const wrapperLi = document.createElement('li');
-    wrapperLi.id = cv.id;
+    wrapperLi.id = list.id;
 
     const titleSpan = document.createElement('span');
-    titleSpan.innerText = cv.title;
+    titleSpan.innerText = list.title;
 
     const button = document.createElement('button');
     button.innerText = 'Delete';
@@ -67,27 +69,26 @@ const render = (todoList) => {
 };
 
 const checkAll = () => {
-  const newTodos = todos.map((cv) => {
-    cv.status = 'completed';
-    return cv;
+  const allCheckedTodos = todos.map((list) => {
+    return { ...list, status: 'completed' };
   });
-
-  todos = newTodos;
+  todos = allCheckedTodos;
+  render(allCheckedTodos);
 };
 
-const unchekAll = () => {
-  const newTodos = todos.map((cv) => {
-    cv.status = 'active';
-    return cv;
+const uncheckAll = () => {
+  const allUncheckedTodos = todos.map((list) => {
+    return { ...list, status: 'active' };
   });
+  todos = allUncheckedTodos;
+  render(allUncheckedTodos);
 };
 
-const onToggle = () => {
-  console.log(todos);
-  if ((document.getElementById('mainCheckBox').checked = true)) {
+const onToggle = (event) => {
+  if (event.target.checked == true) {
     checkAll();
-  } else if ((document.getElementById('mainCheckBox').checked = false)) {
-    uncheckall();
+  } else {
+    uncheckAll();
   }
 };
 
