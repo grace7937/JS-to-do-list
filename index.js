@@ -1,8 +1,8 @@
 const mainCheckBox = document.getElementById('mainCheckBox');
 let todos = [];
 let statusValue = '';
-const input = document.getElementById('input');
-const ul = document.getElementById('ul');
+const input = document.getElementById('input'); // 변수명 교체
+const ul = document.getElementById('ul'); // 변수명 교체
 
 const addList = (title) => {
   const todoId = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1;
@@ -25,13 +25,10 @@ const deleteList = (event) => {
 };
 
 const changeStatus = (event) => {
+  const {parentNode, checked} = event.target;
   const changedStatusTodos = todos.map((list) => {
-    if (Number(event.target.parentNode.id) == list.id) {
-      if (event.target.checked == true) {
-        return { ...list, status: 'completed' };
-      } else {
-        return { ...list, status: 'active' };
-      }
+    if (Number(parentNode.id) === list.id) {
+      return {...list, status: checked ? 'completed' : 'active'}
     } else {
       return list;
     }
@@ -68,24 +65,21 @@ const render = (todos) => {
   });
 };
 
+//checkAll, uncheckAll 두 개의 함수를 하나로 만들고 onToggleBtn 함수에 넣으면 깔끔할 듯
 const checkAll = () => {
-  const allCheckedTodos = todos.map((list) => {
-    return { ...list, status: 'completed' };
-  });
+  const allCheckedTodos = todos.map((list) => ({ ...list, status: 'completed' }));
   todos = allCheckedTodos;
   refineTodos(statusValue);
 };
 
 const uncheckAll = () => {
-  const allUncheckedTodos = todos.map((list) => {
-    return { ...list, status: 'active' };
-  });
+  const allUncheckedTodos = todos.map((list) => ({ ...list, status: 'active' }));
   todos = allUncheckedTodos;
   refineTodos(statusValue);
 };
 
 const onToggleBtn = (event) => {
-  if (event.target.checked == true) {
+  if (event.target.checked) {
     checkAll();
   } else {
     uncheckAll();
@@ -119,27 +113,28 @@ buttomBar.appendChild(allBtn);
 buttomBar.appendChild(activeBtn);
 buttomBar.appendChild(completedBtn);
 
+// 함수명을 바꿔줬으면 함.
 const refineTodos = (status) => {
-  if (status == 'active') {
+// if, else if에서 중복을 줄이기 바람 (하나로 만들기)
+  if (status === 'active') {
     let activeFilter = todos.filter((list) => {
-      return list.status == 'active';
+      return list.status === 'active';
     });
-    console.log(activeFilter);
     render(activeFilter);
-  } else if (status == 'completed') {
+  } else if (status === 'completed') {
     let completedFilter = todos.filter((list) => {
-      return list.status == 'completed';
+      return list.status === 'completed';
     });
-    console.log(completedFilter);
     render(completedFilter);
   } else {
-    console.log(todos);
     render(todos);
   }
 };
 
+// all, active, completed 버튼은 html로 만들고 세개 따로 클릭 이벤트를 달아서 콜백함수를 실행시키는 것이 아니라
+//하나의 함수를 실행시켜서 동작하도록 만들기
 allBtn.addEventListener('click', () => {
-  statusValue = 'all';
+  //statusValue = 'all'; 없어도 될듯
   refineTodos(statusValue);
 });
 activeBtn.addEventListener('click', () => {
