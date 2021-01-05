@@ -1,5 +1,6 @@
 const mainCheckBox = document.getElementById('mainCheckBox');
 let todos = [];
+let statusValue = '';
 const input = document.getElementById('input');
 const ul = document.getElementById('ul');
 
@@ -12,7 +13,7 @@ const addList = (title) => {
   };
   todos.push(todoItem);
   input.value = '';
-  render(todos);
+  refineTodos(statusValue);
 };
 
 const deleteList = (event) => {
@@ -20,7 +21,7 @@ const deleteList = (event) => {
     (list) => Number(event.target.parentNode.id) !== list.id
   );
   todos = deletedList;
-  render(deletedList);
+  refineTodos(statusValue);
 };
 
 const changeStatus = (event) => {
@@ -36,8 +37,7 @@ const changeStatus = (event) => {
     }
   });
   todos = changedStatusTodos;
-  console.log(todos);
-  render(todos);
+  refineTodos(statusValue);
 };
 
 const render = (todos) => {
@@ -73,7 +73,7 @@ const checkAll = () => {
     return { ...list, status: 'completed' };
   });
   todos = allCheckedTodos;
-  render(allCheckedTodos);
+  refineTodos(statusValue);
 };
 
 const uncheckAll = () => {
@@ -81,10 +81,10 @@ const uncheckAll = () => {
     return { ...list, status: 'active' };
   });
   todos = allUncheckedTodos;
-  render(allUncheckedTodos);
+  refineTodos(statusValue);
 };
 
-const onToggle = (event) => {
+const onToggleBtn = (event) => {
   if (event.target.checked == true) {
     checkAll();
   } else {
@@ -98,4 +98,55 @@ input.addEventListener('keydown', (e) => {
   }
 });
 
-mainCheckBox.addEventListener('change', onToggle);
+mainCheckBox.addEventListener('change', onToggleBtn);
+
+//----------buttom_bar-----------------
+
+const buttomBar = document.querySelector('#buttom_bar');
+
+const statusMessage = document.createElement('span');
+const allBtn = document.createElement('button');
+const activeBtn = document.createElement('button');
+const completedBtn = document.createElement('button');
+
+statusMessage.innerText = '? items left   ';
+allBtn.innerText = 'All';
+activeBtn.innerText = 'Active';
+completedBtn.innerText = 'Completed';
+
+buttomBar.appendChild(statusMessage);
+buttomBar.appendChild(allBtn);
+buttomBar.appendChild(activeBtn);
+buttomBar.appendChild(completedBtn);
+
+const refineTodos = (status) => {
+  if (status == 'active') {
+    let activeFilter = todos.filter((list) => {
+      return list.status == 'active';
+    });
+    console.log(activeFilter);
+    render(activeFilter);
+  } else if (status == 'completed') {
+    let completedFilter = todos.filter((list) => {
+      return list.status == 'completed';
+    });
+    console.log(completedFilter);
+    render(completedFilter);
+  } else {
+    console.log(todos);
+    render(todos);
+  }
+};
+
+allBtn.addEventListener('click', () => {
+  statusValue = 'all';
+  refineTodos(statusValue);
+});
+activeBtn.addEventListener('click', () => {
+  statusValue = 'active';
+  refineTodos(statusValue);
+});
+completedBtn.addEventListener('click', () => {
+  statusValue = 'completed';
+  refineTodos(statusValue);
+});
