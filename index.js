@@ -1,21 +1,42 @@
-const mainCheckBox = document.getElementById('mainCheckBox');
-let todos = [];
-let statusValue = '';
-const textBox = document.getElementById('input');
-const listWrapper = document.getElementById('ul');
+// constants
+const TODO_STATUS = {
+  ACTIVE: 'active',
+  COMPLETED: 'completed',
+}
 
-const addList = (title) => {
-  const todoId = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1;
+const STATUS_MODE = {
+  ALL: 'all',
+  ACTIVE: 'active',
+  COMPLETED: 'completed',
+}
+
+// state
+let todos = [];
+let statusMode = STATUS_MODE.ALL;
+
+// DOM Ref
+const mainCheckBox = document.getElementById('main-check-box');
+const additionInput = document.getElementById('addition-input');
+const todoList = document.getElementById('todo-list');
+
+const getID = () => {
+  return todos.length === 0 
+    ? 1 
+    : todos[todos.length - 1].id + 1
+}
+
+const addTodo = (title) => {
   const todoItem = {
-    id: todoId,
-    status: 'active',
+    id: getID(),
     title: title,
+    status: TODO_STATUS.ACTIVE,
   };
+
   todos.push(todoItem);
-  textBox.value = '';
+  
+  additionInput.value = '';
+
   filterBeforeRender();
-  countActiveLength();
-  resetToggleBtn();
 };
 
 const deleteList = (event) => {
@@ -70,13 +91,13 @@ const changeSpanToInput = (event) => {
 };
 
 const render = (todos) => {
-  listWrapper.innerHTML = '';
+  todoList.innerHTML = '';
 
   todos.map((list) => {
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
     checkBox.className = 'checkBox';
-    checkBox.checked = list.status === 'completed' ? true : false;
+    checkBox.checked = list.status === TODO_STATUS.COMPLETED ? true : false;
     checkBox.addEventListener('change', changeStatus);
 
     const wrapperLi = document.createElement('li');
@@ -96,7 +117,9 @@ const render = (todos) => {
     wrapperLi.appendChild(titleSpan);
     wrapperLi.appendChild(DeleteButton);
 
-    listWrapper.appendChild(wrapperLi);
+    todoList.appendChild(wrapperLi);
+
+    // active count innerHTML = count + '어쩌구 저쩌구';
   });
 };
 
@@ -104,23 +127,23 @@ const onToggleBtn = () => {
   const { checked } = event.target;
   const allCheckedTodos = todos.map((list) => ({
     ...list,
-    status: checked ? 'completed' : 'active',
+    status: checked ? TODO_STATUS.COMPLETED : TODO_STATUS.ACTIVE,
   }));
   todos = allCheckedTodos;
   filterBeforeRender();
   countActiveLength();
 };
 
-textBox.addEventListener('keydown', (e) => {
+additionInput.addEventListener('keydown', (e) => {
   if (e.keyCode === 13 && e.target.value !== '') {
-    addList(e.target.value);
+    addTodo(e.target.value);
   }
 });
 
 mainCheckBox.addEventListener('change', onToggleBtn);
 
 //----------buttom_bar-----------------
-const allBtn = document.querySelector('#all_Btn');
+const allBtn = document.querySelector('#all-btn');
 const activeBtn = document.querySelector('#active_Btn');
 const completedBtn = document.querySelector('#completed_Btn');
 
@@ -130,42 +153,45 @@ statusMessage.innerText = '0 items left   '; // 이거는 나중에 간격을 cs
 buttomBar.insertBefore(statusMessage, allBtn);
 
 const saveStatusInLocalStorage = () => {
-  localStorage.setItem('status', statusValue);
+  localStorage.setItem('status', statusMode);
 };
 
 const filterBeforeRender = () => {
-  if (!statusValue) {
-    render(todos);
-    return;
+  if (statusMode === STATUS_MODE.ALL) {
+    return render(todos);
   }
-  let filteredTodo = todos.filter((list) => list.status === statusValue);
+
+  const filteredTodo = todos.filter((list) => list.status === statusMode);
+  
   render(filteredTodo);
   saveTodos();
   saveStatusInLocalStorage();
 };
 
 const countActiveLength = () => {
-  // 여기도 {}, return 없애기 -> 통일감있게 만들기 위해서 시키는 것임
-  let activeArray = todos.filter((list) => list.status === 'active');
-  let activeCount = activeArray.length;
+  const activeArray = todos.filter((list) => list.status === TODO_STATUS.ACTIVE);
+  const activeCount = activeArray.length;
+
+  // activeCount 이 친구를 상태로 두어야 한다.
+
   statusMessage.innerText = activeCount + 'items left';
 };
 
 allBtn.addEventListener('click', () => {
-  statusValue = '';
+  statusMode = '';
   filterBeforeRender();
 });
 activeBtn.addEventListener('click', () => {
-  statusValue = 'active';
+  statusMode = TODO_STATUS.ACTIVE;
   filterBeforeRender();
 });
 completedBtn.addEventListener('click', () => {
-  statusValue = 'completed';
+  statusMode = TODO_STATUS.COMPLETED;
   filterBeforeRender();
 });
 
 const saveTodos = () => {
-  localStorage.clear();
+  localStorage.clear(); // 있는게 맞나...?
   localStorage.setItem('user', JSON.stringify(todos));
 };
 
@@ -181,14 +207,13 @@ const getTodos = () => {
   }
 };
 
-const resetToggleBtn = () => {
-  const truthyFalsy = todos.every((list) => list.status == 'active');
-  truthyFalsy ? (mainCheckBox.checked = false) : (mainCheckBox.checked = true);
+const getIsAllActive = () => {
+  return todos.every(({ status }) => status == TODO_STATUS.ACTIVE);
 };
 
 const getStatusFromLocalStorage = () => {
   const receivedStatus = localStorage.getItem('status');
-  statusValue = receivedStatus;
+  statusMode = receivedStatus;
 };
 
 const init = () => {
