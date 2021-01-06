@@ -62,7 +62,8 @@ const changeSpanToInput = (event) => {
   parentNode.replaceChild(replacedInput, event.target);
 
   replacedInput.addEventListener('keydown', (e) => {
-    if (event.keyCode === 13) {
+    if (e.keyCode === 13) {
+      console.log('hi');
       changeInputToSpan(e);
     }
   });
