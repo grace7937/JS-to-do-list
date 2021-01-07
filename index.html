@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TodoList</title>
+    <script src="https://kit.fontawesome.com/60c121e8fe.js" crossorigin="anonymous"></script>
     <script src="index.js" defer></script>
+    <link rel="stylesheet" href="index.css">
   </head>
-  <body>
-      <h2>todos</h2>
-      <input type="checkbox" id="mainCheckBox">
-      <input id='input' type="text" placeholder="What needs to be done?">
-      <ul id='ul'></ul>
+  <body id='todo-body'>
+      <h2 id =title-text>todos</h2>
+      <div id="todos-wrapper">
+
+        <div class="input-box-wrapper">
+      <input type="checkbox" id="main-check-box">
+      <input id='addition-input' type="text" placeholder="What needs to be done?">
+    </div>
+
+      <ul id='todo-list'></ul>
       <div id="buttom_bar">
-          <button id="all_Btn">All</button>
-          <button id="active_Btn">Active</button>
-          <button id="completed_Btn">Completed</button>
+
+       
+          <button id="all-btn">All</button>
+          <button id="active-btn">Active</button>
+          <button id="completed-btn">Completed</button>
       </div>
+    </div>
   </body>
 </html>

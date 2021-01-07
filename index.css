@@ -1,0 +1,100 @@
+#todo-body {
+  background-color: #f5f5f5;
+}
+#title-text {
+  font-size: 80px;
+  color: #ead7d7;
+  text-align: center;
+  margin: 10px;
+}
+
+#main-check-box {
+  font-size: 1;
+}
+
+#todos-wrapper {
+  border: solid 0.1px;
+  width: 600px;
+  background-color: #ffffff;
+}
+
+#addition-input {
+  height: 40px;
+  width: 400px;
+  border: none;
+  font-size: 21px;
+}
+
+#input-box-wrapper {
+}
+
+#todo-list {
+  padding-left: 0;
+}
+
+#buttom_bar {
+  display: flex;
+  align-items: center;
+}
+#all-btn {
+  margin-left: 60px;
+  background-color: #11ffee00;
+  border: solid #11ffee00;
+  cursor: pointer;
+}
+#all-btn:hover {
+  border: solid 0.2px#ead7d7;
+}
+#active-btn {
+  background-color: #11ffee00;
+  margin-left: 10px;
+  border: solid #11ffee00;
+  cursor: pointer;
+}
+#active-btn:hover {
+  border: solid 0.2px#ead7d7;
+}
+#completed-btn {
+  margin-left: 10px;
+  background-color: #11ffee00;
+  border: solid #11ffee00;
+  cursor: pointer;
+}
+#completed-btn:hover {
+  border: solid 0.2px#ead7d7;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  font-size: 23px;
+  list-style: none;
+  border: solid 0.1px;
+  height: 52px;
+}
+
+.todo:hover .delete-btns {
+  display: block;
+}
+
+.active-count {
+  margin-left: 10px;
+}
+
+.check-box {
+  margin-right: 15px;
+}
+
+.delete-btns {
+  text-align: right;
+  margin-left: auto;
+  margin-right: 20px;
+  display: none;
+  border: none;
+  background-color: none;
+  font-size: 20px;
+  background-color: #ffffff;
+}
+.fas {
+  color: #ead7d7;
+}
