@@ -20,6 +20,7 @@ const activeBtn = document.querySelector('#active-btn');
 const completedBtn = document.querySelector('#completed-btn');
 const buttomBar = document.querySelector('#buttom_bar');
 const statusMessage = document.createElement('span');
+const clearCompleteBtn = document.querySelector('#clear-btn');
 statusMessage.className = 'active-count';
 
 const getID = () => {
@@ -40,7 +41,7 @@ const addTodo = (title) => {
 
 const deleteList = (event) => {
   const deletedList = todos.filter(
-    (todo) => Number(event.target.parentNode.id) !== todo.id
+    (todo) => Number(event.target.parentNode.parentNode.id) !== todo.id
   );
   todos = deletedList;
   filterBeforeRender();
@@ -86,35 +87,56 @@ const changeSpanToInput = (event) => {
   });
 };
 
+const clearCompletedTodo = () => {
+  const isAllCompleted = todos.filter((todo) => todo.status !== 'completed');
+ 
+  todos = isAllCompleted;
+ filterBeforeRender(); 
+
+}
+
+clearCompleteBtn.addEventListener('click', clearCompletedTodo);
+
 const render = (todos) => {
   todoList.innerHTML = '';
   todos.map((todo) => {
     const checkBox = document.createElement('input');
     checkBox.type = 'checkbox';
+    checkBox.id = 'for-' + todo.id;
     checkBox.className = 'check-box';
     checkBox.checked = todo.status === TODO_STATUS.COMPLETED ? true : false;
     checkBox.addEventListener('change', changeStatus);
+
+    const checkboxIcon = document.createElement('label');
+    checkboxIcon.innerHTML =
+      todo.status === 'completed'
+        ? '<i class="far fa-check-circle checked"></i>'
+        : '<i class="far fa-circle"></i>';
+    checkboxIcon.htmlFor = 'for-' + todo.id;
 
     const wrapperLi = document.createElement('li');
     wrapperLi.className = 'todo';
     wrapperLi.id = todo.id;
 
     const titleSpan = document.createElement('span');
+    titleSpan.className = todo.status;
     titleSpan.innerText = todo.title;
+
+
 
     titleSpan.addEventListener('dblclick', (event) => changeSpanToInput(event));
 
     const DeleteButton = document.createElement('button');
     DeleteButton.innerText = 'Delete';
-    DeleteButton.className='delete-btns';
+    DeleteButton.className = 'delete-btns';
     DeleteButton.addEventListener('click', deleteList);
-    DeleteButton.innerHTML = '<i class="fas fa-times"></i>'
+    DeleteButton.innerHTML = '<i class="fas fa-times"></i>';
 
     statusMessage.innerText = '0 items left   ';
     buttomBar.insertBefore(statusMessage, allBtn);
 
-
     wrapperLi.appendChild(checkBox);
+    wrapperLi.appendChild(checkboxIcon);
     wrapperLi.appendChild(titleSpan);
     wrapperLi.appendChild(DeleteButton);
 
@@ -196,6 +218,15 @@ const getTodos = () => {
 const isAllChecked = () => {
   const isAllChecked = todos.every((todo) => todo.status === 'completed');
   isAllChecked ? (mainCheckBox.checked = true) : (mainCheckBox.checked = false);
+
+console.log(isAllChecked);
+  const mainCheckboxIcon = document.querySelector('#main-checkbox-icon');
+  if(isAllChecked === true){
+  mainCheckboxIcon.classList.add('mainCheckbox-checked')
+}else{
+  mainCheckboxIcon.classList.remove('mainCheckbox-checked')
+}
+
 };
 
 const getStatusFromLocalStorage = () => {

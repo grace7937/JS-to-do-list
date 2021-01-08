@@ -12,8 +12,9 @@
       <h2 id =title-text>todos</h2>
       <div id="todos-wrapper">
 
-        <div class="input-box-wrapper">
+    <div class="input-box-wrapper">
       <input type="checkbox" id="main-check-box">
+      <label for="main-check-box"><i id='main-checkbox-icon' class="fas fa-chevron-down"></i></label>
       <input id='addition-input' type="text" placeholder="What needs to be done?">
     </div>
 
@@ -24,7 +25,18 @@
           <button id="all-btn">All</button>
           <button id="active-btn">Active</button>
           <button id="completed-btn">Completed</button>
+          <button id="clear-btn">Clear completed</button>
       </div>
+      
     </div>
+    
+    <footer>
+      <div class="footer-message">
+      <p class="footer">Double-click to edit a todo</p>
+      <p class="footer">Written by Luke Edwards</p>
+      <p class="footer">Refactored by Aaron Muir Hamilton</p>
+      <p class="footer">Part of TodoMVC</p>
+      </div>
+    </footer>
   </body>
 </html>
