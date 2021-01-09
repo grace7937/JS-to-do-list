@@ -89,11 +89,10 @@ const changeSpanToInput = (event) => {
 
 const clearCompletedTodo = () => {
   const isAllCompleted = todos.filter((todo) => todo.status !== 'completed');
- 
-  todos = isAllCompleted;
- filterBeforeRender(); 
 
-}
+  todos = isAllCompleted;
+  filterBeforeRender();
+};
 
 clearCompleteBtn.addEventListener('click', clearCompletedTodo);
 
@@ -121,8 +120,6 @@ const render = (todos) => {
     const titleSpan = document.createElement('span');
     titleSpan.className = todo.status;
     titleSpan.innerText = todo.title;
-
-
 
     titleSpan.addEventListener('dblclick', (event) => changeSpanToInput(event));
 
@@ -219,14 +216,13 @@ const isAllChecked = () => {
   const isAllChecked = todos.every((todo) => todo.status === 'completed');
   isAllChecked ? (mainCheckBox.checked = true) : (mainCheckBox.checked = false);
 
-console.log(isAllChecked);
+  console.log(isAllChecked);
   const mainCheckboxIcon = document.querySelector('#main-checkbox-icon');
-  if(isAllChecked === true){
-  mainCheckboxIcon.classList.add('mainCheckbox-checked')
-}else{
-  mainCheckboxIcon.classList.remove('mainCheckbox-checked')
-}
-
+  if (isAllChecked === true) {
+    mainCheckboxIcon.classList.add('mainCheckbox-checked');
+  } else {
+    mainCheckboxIcon.classList.remove('mainCheckbox-checked');
+  }
 };
 
 const getStatusFromLocalStorage = () => {
