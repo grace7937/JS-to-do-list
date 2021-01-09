@@ -24,7 +24,7 @@
   outline: none;
 }
 
-#buttom_bar {
+#buttom-bar {
   display: flex;
   align-items: center;
 
@@ -119,7 +119,7 @@
   display: block;
 }
 
-.active-count {
+#active-count {
   margin-left: 10px;
   color: #777;
   font-size: 13px;
