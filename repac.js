@@ -32,13 +32,9 @@ mainCheckBox.addEventListener('change', toggleAllTodoHandler);
 additionInput.addEventListener('keydown', addToDoHandler);
 clearCompleteBtn.addEventListener('click', clearCompletedTodoHander);
 allBtn.addEventListener('click', () => changeStatustMode(STATUS_MODE.ALL));
-activeBtn.addEventListener('click', () =>
-  changeStatustMode(STATUS_MODE.ACTIVE)
-);
-completedBtn.addEventListener('click', () =>
-  changeStatustMode(STATUS_MODE.COMPLETED)
-);
-KJ;
+activeBtn.addEventListener('click', () => changeStatustMode(STATUS_MODE.ACTIVE));
+completedBtn.addEventListener('click', () => changeStatustMode(STATUS_MODE.COMPLETED));
+
 
 // HANDLER
 function toggleAllTodoHandler() {
@@ -54,6 +50,7 @@ function toggleAllTodoHandler() {
 }
 
 function addToDoHandler(e) {
+  console.log('hi')
   const todoText = e.target.value;
   const isValidTodoText = e.key === 'Enter' && todoText !== '';
 
@@ -174,6 +171,7 @@ const getDeleteButton = (todo) => {
 };
 
 const getWriteInput = (todo) => {
+  console.log(todo)
   const writeInput = document.createElement('input');
 
   writeInput.value = todo.text;

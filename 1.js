@@ -1,10 +1,12 @@
-function highAndLow(n) {
-  const a = n.split('');
-  const x = Math.max(...a);
-  const b = Math.min(...a);
+var moveZeros = function (arr) {
+  arr.forEach((c,i) => {
+    if(c===0) {
+     let result = arr.splice(i,1);
+     arr.push(result);
+    }
 
-  const result = x,
-    b;
-}
+  })
+  console.log(arr)
+ }
 
-highAndLow('2 3 5 66 72');
+moveZeros([1,2,0,1,0,1,0,3,0,1]);
