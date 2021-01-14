@@ -1,12 +1,22 @@
-var moveZeros = function (arr) {
-  arr.forEach((c,i) => {
-    if(c===0) {
-     let result = arr.splice(i,1);
-     arr.push(result);
-    }
-
+function pigIt(str){
+  const a = str.split(' ');
+  const b =a.map(c=>{
+  return c.split('').shift()+'ay';
+  });
+  
+  const d = a.map(c=> {
+    return c.split('').splice(1);
   })
-  console.log(arr)
- }
+ 
+  const m = d.map(c=>{
+   return c.join('');
+  });
+ 
+ const result = m.map((c,i)=> {
+    return c+ b[i];
+  });
+ console.log(result.join());
 
-moveZeros([1,2,0,1,0,1,0,3,0,1]);
+  
+}
+pigIt('Pig latin is cool');

@@ -20,8 +20,8 @@ let currentStatusMode = STATUS_MODE.ALL;
 
 // DOM Object
 const mainCheckBox = document.getElementById('main-check-box');
-const additionInput = document.getElementById('addition-input');
-const todoList = document.getElementById('todo-list');
+// const additionInput = document.getElementById('addition-input');
+// const todoList = document.getElementById('todo-list');
 const allBtn = document.querySelector('#all-btn');
 const activeBtn = document.querySelector('#active-btn');
 const completedBtn = document.querySelector('#completed-btn');
@@ -29,7 +29,7 @@ const clearCompleteBtn = document.querySelector('#clear-btn');
 const activeAccount = document.querySelector('#active-count');
 
 mainCheckBox.addEventListener('change', toggleAllTodoHandler);
-additionInput.addEventListener('keydown', addToDoHandler);
+// additionInput.addEventListener('keydown', addToDoHandler);
 clearCompleteBtn.addEventListener('click', clearCompletedTodoHander);
 allBtn.addEventListener('click', () => changeStatustMode(STATUS_MODE.ALL));
 activeBtn.addEventListener('click', () => changeStatustMode(STATUS_MODE.ACTIVE));
@@ -125,17 +125,17 @@ const addTodo = (text) => {
 };
 
 // MAKE ELEMENT
-const getCheckBox = (todo) => {
-  const checkBox = document.createElement('input');
+// const getCheckBox = (todo) => {
+//   const checkBox = document.createElement('input');
 
-  checkBox.type = 'checkbox';
-  checkBox.id = `todo-checkbox-${todo.id}`;
-  checkBox.className = 'check-box';
-  checkBox.checked = todo.status === TODO_STATUS.COMPLETED;
-  checkBox.addEventListener('change', () => changeTodoStatusHandler(todo.id));
+//   checkBox.type = 'checkbox';
+//   checkBox.id = `todo-checkbox-${todo.id}`;
+//   checkBox.className = 'check-box';
+//   checkBox.checked = todo.status === TODO_STATUS.COMPLETED;
+//   checkBox.addEventListener('change', () => changeTodoStatusHandler(todo.id));
 
-  return checkBox;
-};
+//   return checkBox;
+// };
 
 const getCheckBoxIcon = (todo) => {
   const checkboxIcon = document.createElement('label');

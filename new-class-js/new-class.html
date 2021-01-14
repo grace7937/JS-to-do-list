@@ -4,11 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="new-class.js"></script>
+    <script defer src="new-class.js"></script>
 </head>
-<body>
-   <h2>Todos</h2>
-   <input id='input' type="text">
-
-</body>
-</html>
+<body id='todo-body'>
+    <h2 id=title-text>todos</h2>
+    <div id="todos-wrapper">
+  
+      <div class="input-box-wrapper">
+        <input type="checkbox" id="main-check-box">
+        <label for="main-check-box"><i id='main-checkbox-icon' class="fas fa-chevron-down"></i></label>
+        <input id='addition-input' type="text" placeholder="What needs to be done?">
+      </div>
+      <ul id='todo-list'></ul>
+      <div id="buttom_bar">
+        <span id="active-count">0 items left</span>
+        <button id="all-btn">All</button>
+        <button id="active-btn">Active</button>
+        <button id="completed-btn">Completed</button>
+        <button id="clear-btn">Clear completed</button>
+      </div>
+    </div>
+  
+    <footer>
+      <div class="footer-message">
+        <p class="footer">Double-click to edit a todo</p>
+        <p class="footer">Written by Luke Edwards</p>
+        <p class="footer">Refactored by Aaron Muir Hamilton</p>
+        <p class="footer">Part of TodoMVC</p>
+      </div>
+    </footer>
+  </body>
