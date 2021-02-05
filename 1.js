@@ -1,22 +1,10 @@
-function pigIt(str){
-  const a = str.split(' ');
-  const b =a.map(c=>{
-  return c.split('').shift()+'ay';
-  });
+function humanReadable(sec) {
+  const h = sec % 3600
   
-  const d = a.map(c=> {
-    return c.split('').splice(1);
-  })
- 
-  const m = d.map(c=>{
-   return c.join('');
-  });
- 
- const result = m.map((c,i)=> {
-    return c+ b[i];
-  });
- console.log(result.join());
+  // 초가 입력 되면초를 시간으로 나누고 값받고
+  // 분을 초로환산한 60을 나누고
+  // 그나머지는 그냥 반환
+    console.log(h)
+ }
 
-  
-}
-pigIt('Pig latin is cool');
+ humanReadable(3600);

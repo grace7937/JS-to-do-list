@@ -156,6 +156,7 @@ const onToggleBtn = () => {
 
 additionInput.addEventListener('keydown', (e) => {
   if (e.keyCode === 13 && e.target.value !== '') {
+    console.log('hi');
     addTodo(e.target.value);
   }
 });

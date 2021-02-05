@@ -53,9 +53,6 @@
   margin: 0px;
 }
 
-#input-box-wrapper {
-}
-
 #all-btn {
   margin-left: 60px;
   background-color: #11ffee00;
@@ -119,10 +116,10 @@
   display: block;
 }
 
-.active-count {
-  margin-left: 10px;
+#active-count {
+  padding-left: 15px;
   color: #777;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .check-box {
