@@ -19,3 +19,6 @@ checkBox.type = 'checkbox';
     const clearCompleteBtn = document.querySelector('#clear-btn');
     statusMessage.className = 'active-count';
     
+    const getID = () => {
+      return todos.length === 0 ? 1 : todos[todos.length - 1].id + 1;
+    };
