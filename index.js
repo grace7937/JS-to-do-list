@@ -156,7 +156,6 @@ const onToggleBtn = () => {
 
 additionInput.addEventListener('keydown', (e) => {
   if (e.keyCode === 13 && e.target.value !== '') {
-    console.log('hi');
     addTodo(e.target.value);
   }
 });
@@ -217,7 +216,6 @@ const isAllChecked = () => {
   const isAllChecked = todos.every((todo) => todo.status === 'completed');
   isAllChecked ? (mainCheckBox.checked = true) : (mainCheckBox.checked = false);
 
-  console.log(isAllChecked);
   const mainCheckboxIcon = document.querySelector('#main-checkbox-icon');
   if (isAllChecked === true) {
     mainCheckboxIcon.classList.add('mainCheckbox-checked');
