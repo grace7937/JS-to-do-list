@@ -59,7 +59,6 @@ function addToDoHandler(e) {
   if (isValidTodoText) {
     addTodo(todoText);
     additionInput.value = '';
-
     render(todos);
   }
 }

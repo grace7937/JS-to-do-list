@@ -33,7 +33,6 @@ const addTodo = (title) => {
     id: getID(),
     status: TODO_STATUS.ACTIVE,
   };
-
   todos.push(todoItem);
   additionInput.value = '';
   filterBeforeRender();
@@ -173,7 +172,6 @@ const filterBeforeRender = () => {
     let filteredTodo = todos.filter((todo) => todo.status === statusMode);
     render(filteredTodo);
   }
-
   saveStatusInLocalStorage();
 };
 
