@@ -28,6 +28,7 @@ https://todomvc.com/ 의 Todo List를 구현했습니다. Todo List들은 Locals
 - 생성된 모든 todo는 "Active" 혹은 "Completed" 상태를 가집니다.
 - 상태변경은 생성된 list들의 왼쪽 동그라미 체크를 통해 변경할 수 있습니다.
 - 하단 맨 오른쪽에 위치한 버튼(Clear completed)을 통해서 상태가 "Completed"인 todo를 모두 삭제 가능합니다
+- 생성된 todo를 더블클릭 하면 todo내용을 변경 할 수 있습니다.
 - 생성된 todo는 Localstorage에 저장됩니다.
 
 
